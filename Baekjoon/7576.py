@@ -19,7 +19,6 @@ def bfs():
 M, N = map(int, input().split()) # 가로, 세로
 tomato = [[]* M for _ in range(N)]
 ans = 0
-well_done = 0
 not_well_done = 0
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
