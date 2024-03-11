@@ -11,7 +11,6 @@ for i in combinations(split_length, 2):
     split_index.append(list(i))
 
 for i in range(len(split_index)):
-    current = []
     str1 = word[0:split_index[i][0]+1][::-1]
     str2 = word[split_index[i][0]+1:split_index[i][1]+1][::-1]
     str3 = word[split_index[i][1]+1:][::-1]
