@@ -15,7 +15,7 @@ while True:
 goal_size = size - K
 current_size = goal_size
 
-while current_size > 0:
+while True:
     for i in arr:
         if current_size >= i:
             current_size -= i
