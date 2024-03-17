@@ -48,14 +48,8 @@ for _ in range(T):
         arr[n1].append(n2)
         arr[n2].append(n1)
 
-    for i in range(1, n+1):
-        if arr[i] != []:
-            color[i] = 'B' # 시작
-            s = i
-            break
-
     ans = 0
-    for i in range(s, n+1):
+    for i in range(1, n+1):
         if arr[i] != []:
             if bfs(i) == 'impossible':
                 ans = 1
