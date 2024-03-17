@@ -32,7 +32,6 @@ arr = [[] * M for _ in range(N)]
 ans = 0
 dx = [-1, 1, 0, 0, 1, 1, -1, -1]
 dy = [0, 0, -1, 1, 1, -1, 1, -1]
-visited = [[False] * M for _ in range(N)]
 
 for i in range(N):
     arr[i] = list(map(int, input().split()))
