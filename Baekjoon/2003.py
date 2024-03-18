@@ -8,14 +8,13 @@ while s <= e < N:
     if M == sum(num[s:e+1]):
         ans += 1
         s += 1
-        e += 1
+        if s > e:
+            e += 1
     elif M > sum(num[s:e+1]):
         e += 1
     else:
-        if s == e:
-            s += 1
+        s += 1
+        if s > e:
             e += 1
-        else:
-            s += 1
 
 print(ans)
