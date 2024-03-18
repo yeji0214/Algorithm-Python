@@ -1,3 +1,4 @@
+# 그래프, bfs
 from collections import deque
 
 def bfs(x, y):
