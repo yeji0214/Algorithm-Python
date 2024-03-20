@@ -21,7 +21,7 @@ inequality_sign = list(input().split())
 visited = [False] * 10
 ans = []
 
-dfs(0, []) # 현재 넣은 숫자의 개수, 현재 식
+dfs(0, []) # 현재 넣은 숫자의 개수, 현재 리스트
 
 print(*ans.pop(), sep='')
 print(*ans.pop(0), sep='')
