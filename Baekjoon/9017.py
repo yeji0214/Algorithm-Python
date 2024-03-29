@@ -6,14 +6,13 @@ for _ in range(T):
     t = list(map(int, input().split()))
     out = [] # 참가 선수가 6명 미만인 팀 번호 저장
     score = {}
-    num = {} # 각 팀별 몇 번째 선수까지 검사했는지 저장
 
     # 6명 미만인 팀 번호 저장
     for i in t:
         if t.count(i) < 6:
             out.append(i)
         else:
-            # 점수와 횟수 초기화
+            # 점수 초기화
             score[i] = []
     
     current = 1
