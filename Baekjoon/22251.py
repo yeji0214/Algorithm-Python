@@ -3,9 +3,6 @@ def onoff(nX):
     global result
     ans = 0
     
-    if nX < 1 or nX > N:
-        return
-    
     currentX = list(f'{X:0{K}d}')
     currentnX = list(f'{nX:0{K}d}')
 
