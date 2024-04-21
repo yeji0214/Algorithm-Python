@@ -1,3 +1,4 @@
+# 그래프, 브루트포스, 백트래킹
 # 첫 번째 풀이
 def dfs(x, y, d):
     global ans
