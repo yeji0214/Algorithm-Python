@@ -1,44 +1,53 @@
 # 그래프, bfs
 from collections import deque
 
-def bfs():
+def bfs(location):
     q = deque()
-    for i in range(len(tomato_index)):
-        q.append((tomato_index[i][0], tomato_index[i][1]))
+
+    for l in location:
+        q.append((l[0], l[1]))
 
     while q:
         cx, cy = q.popleft()
 
         for k in range(4):
             nx, ny = cx + dx[k], cy + dy[k]
+
             if 0 <= nx < N and 0 <= ny < M and tomato[nx][ny] == 0:
                 tomato[nx][ny] = tomato[cx][cy] + 1
                 q.append((nx, ny))
 
-
-M, N = map(int, input().split()) # 가로, 세로
-tomato = [[]* M for _ in range(N)]
+M, N = map(int, input().split())
+tomato = [[] * M for _ in range(N)]
+location = []
+unripe = 0 # 안 익은 토마토
 ans = 0
-not_well_done = 0
+
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
-tomato_index = []
 
 for i in range(N):
     tomato[i] = list(map(int, input().split()))
+    unripe += tomato[i].count(0)
 
-for i in range(N):
-    for j in range(M):
-        if tomato[i][j] == 1:
-            tomato_index.append([i,j])
+if unripe == 0: # 안 익은 토마토가 없는 경우 (모든 토마토가 익어있는 상태)
+    ans = 1
 
-bfs()
+else:
+    unripe = 0
 
-for i in range(N):
-    ans = max(ans, max(tomato[i])-1)
-    not_well_done += tomato[i].count(0)
-    if not_well_done > 0:
-        ans = -1
-        break
+    for i in range(N):
+        for j in range(M):
+            if tomato[i][j] == 1:
+                location.append([i, j])
 
-print(ans)
+    bfs(location)
+
+    for i in range(N):
+        unripe += tomato[i].count(0)
+        ans = max(ans, max(tomato[i]))
+
+    if unripe > 0: # 안 익은 토마토가 있다! (토마토가 모두 익지는 못하는 상황)
+        ans = 0
+
+print(ans - 1)
