@@ -5,18 +5,19 @@ ans = 0
 
 while s <= e:
     total = 0 # 블루레이의 개수
-    mid = (s+e) // 2
-    result = 0
-    for i in guitar:
-        if result + i > mid:
-            total += 1
-            result = 0
-        result += i
+    current = 0 # 현재 강의 길이의 합
+    mid = (s + e) // 2
 
-    if result:
+    for g in guitar:
+        if current + g > mid:
+            total += 1
+            current = 0
+        current += g
+
+    if current > 0:
         total += 1
 
-    if total > M:
+    if total > M: # 강의 길이를 늘려야 함
         s = mid + 1
     else:
         e = mid - 1
