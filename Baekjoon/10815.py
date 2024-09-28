@@ -1,23 +1,26 @@
 # 정렬, 이진 탐색
 N = int(input())
-cards = sorted(list(map(int, input().split())))
+nums = sorted(list(map(int, input().split())))
 M = int(input())
-nums = list(map(int, input().split()))
+cards = list(map(int, input().split()))
 ans = []
 
-for n in nums:
-    s, e = 0, len(cards) - 1
+for c in cards:
+    s = 0
+    e = N - 1
+    have = 0
 
     while s <= e:
         mid = (s + e) // 2
-        if n == cards[mid]:
-            ans.append(1)
+        if nums[mid] == c:
+            have = 1
             break
-        elif n < cards[mid]:
-            e = mid - 1
-        else:
+
+        elif nums[mid] < c:
             s = mid + 1
-    else:
-        ans.append(0)
+        else:
+            e = mid - 1
+
+    ans.append(have)
 
 print(*ans)
