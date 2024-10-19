@@ -1,3 +1,4 @@
+# 집합
 import sys
 
 M = int(sys.stdin.readline())
