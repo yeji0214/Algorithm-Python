@@ -1,34 +1,53 @@
-from itertools import combinations, permutations
+# 내 풀이
+from itertools import combinations
 
 N = int(input())
-
-ability = [[0] * N for _ in range(N)]
-ans = 1e9
+S = [[0] * N for _ in range(N)]
+all_team = list(i for i in range(N))
+ans = 101
 
 for i in range(N):
-    ability[i] = list(map(int, input().split()))
+    S[i] = list(map(int, input().split()))
 
-team = list(i for i in range(0, N))
-team1 = list(map(list, combinations(team, N // 2)))
+teams = list(map(list, (combinations(all_team, N // 2))))
 
-for t1 in team1:
-    t1_res = 0
-    t2_res = 0
+for t in teams:
+    t1 = t
+    t2 = list(set(all_team) - set(t1))
+    t1_sum = 0
+    t2_sum = 0
 
-    t2 = list(set(team) - set(t1))
+    for i in combinations(t1, 2):
+        t1_sum += (S[i[0]][i[1]] + S[i[1]][i[0]])
 
-    # 각 팀에서 모든 조합의 능력을 더해야 함
-    # 그리고 두 팀의 차이를 구해!
+    for i in combinations(t2, 2):
+        t2_sum += (S[i[0]][i[1]] + S[i[1]][i[0]])
 
-    t1_a = list(map(list, permutations(t1, 2)))
-    t2_a = list(map(list, permutations(t2, 2)))
+    ans = min(ans, abs(t1_sum - t2_sum))
 
-    for a in t1_a:
-        t1_res += ability[a[0]][a[1]]
+print(ans)
 
-    for a in t2_a:
-        t2_res += ability[a[0]][a[1]]
 
-    ans = min(ans, abs(t1_res - t2_res))
+# 백트래킹
+N = int(input())
+M = N // 2
+S = [list(map(int, input().split())) for _ in range(N)]
+ans = 1e9
 
+def dfs(n, alst, blst):
+    global ans
+    if n == N:
+        if len(alst) == len(blst):
+            a_sum, b_sum = 0, 0
+            for i in range(M):
+                for j in range(M):
+                    a_sum += S[alst[i]][alst[j]]
+                    b_sum += S[blst[i]][blst[j]]
+            ans = min(ans, abs(a_sum - b_sum))
+        return
+
+    dfs(n + 1, alst + [n], blst)
+    dfs(n + 1, alst, blst + [n])
+
+dfs(0, [], [])
 print(ans)
