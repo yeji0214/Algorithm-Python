@@ -1,20 +1,11 @@
+# 내 풀이
 from itertools import combinations
 import copy
 
 def move():
-    # for i in range(1, H + 1):
-    #     # ci = i
-    #     for j in range(1, N + 1):
-    #         # if [ci, j] in lines:
-    #         ci = ladder[j][ci]
-    #     if ci != i:
-    #         return False
-    # return True
-
-    for i in range(1, H):
+    for i in range(1, N + 1):
         ci = i
-        for j in range(1, N + 1):
-            # ci = ladder[j][ci]
+        for j in range(1, H + 1):
             ci = ladder[ci][j]
         if ci != i:
             return False
@@ -52,16 +43,12 @@ for c in range(1, 4):
     new_lines = [list(comb) for comb in combinations(candidate_lines, c)]
 
     for current_lines in new_lines:
-        # print('current: ' + str(current_lines))
-    
         for i, j in current_lines:
             if (i, j - 1) in current_lines or (i, j + 1) in current_lines:
                 break
 
         for i, j in current_lines:
             lines.append([i, j])
-
-        original_ladder = copy.deepcopy(ladder)
 
         for i, j in current_lines:
             ladder[j][i] = j + 1
@@ -74,8 +61,65 @@ for c in range(1, 4):
         for i, j in current_lines:
             lines.remove([i, j])
 
-        ladder = original_ladder
+        for i, j in current_lines:
+            ladder[j][i] = j
+            ladder[j + 1][i] = j + 1
 
 print(-1)
 
-# ladder 업데이트부터 해야됨
+
+# 다른 풀이
+
+def check():
+    for j in range(1, N + 1):
+        cj = j
+        for i in range(1, H + 1):
+            if arr[i][cj] == 1:
+                cj += 1
+            elif arr[i][cj - 1] == 1:
+                cj -= 1
+        if cj != j:
+            return 0
+    return 1
+
+def dfs(n, s):
+    global ans
+
+    if ans == 1:
+        return
+    
+    if n == cnt:
+        if check() == 1:
+            ans = 1
+        return
+    
+    for j in range(s, CNT):
+        ti, tj = pos[j]
+        if arr[ti][tj - 1] == 0 and arr[ti][tj + 1] == 0:
+            arr[ti][tj] = 1
+            dfs(n + 1, j + 1)
+            arr[ti][tj] = 0
+
+N, M, H = map(int, input().split())
+
+arr = [[0] * (N + 2) for _ in range(H + 1)]
+for _ in range(M):
+    i, j = map(int, input().split())
+    arr[i][j] = 1
+
+pos = []
+for i in range(1, H + 1):
+    for j in range(1, N + 1):
+        if arr[i][j] == 0 and arr[i][j - 1] == 0 and arr[i][j + 1] == 0:
+            pos.append((i, j))
+CNT = len(pos)
+
+for cnt in range(4):
+    ans = 0
+    dfs(0, 0)
+    if ans == 1:
+        ans = cnt
+        break
+else:
+    ans = -1
+print(ans)
