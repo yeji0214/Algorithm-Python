@@ -1,14 +1,33 @@
-def solution(people, limit):
-    answer = 0
-    people.sort()
+# def solution(people, limit):
+#     answer = 0
+#     people.sort()
     
-    s = 0
-    e = len(people) - 1
+#     s = 0
+#     e = len(people) - 1
     
-    while s < e:
-        if people[s] + people[e] <= limit:
-            s += 1
-            answer += 1
-        e -= 1
+#     while s < e:
+#         if people[s] + people[e] <= limit:
+#             s += 1
+#             answer += 1
+#         e -= 1
 
-    return len(people) - answer
+#     return len(people) - answer
+
+
+def solution(people, limit):
+    ans = 0
+    people = sorted(people)
+    s, e = 0, len(people) - 1
+
+    while s <= e:
+        ans += 1
+        res = people[s] + people[e]
+        if res <= limit:
+            s += 1
+            e -= 1
+        else:
+            e -= 1
+
+    return ans
+
+print(solution([70, 50, 80, 50], 100))
